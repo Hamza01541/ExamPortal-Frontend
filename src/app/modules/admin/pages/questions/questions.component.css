@@ -1,0 +1,36 @@
+@keyframes p-progress-spinner-color {
+    100%,
+    0% {
+        stroke: #d62d20;
+    }
+    40% {
+        stroke: #0057e7;
+    }
+    66% {
+        stroke: #008744;
+    }
+    80%,
+    90% {
+        stroke: #ffa700;
+    }
+}
+
+    
+:host::ng-deep.p-progress-spinner-svg{
+    animation: p-progress-spinner-rotate 5s linear infinite;
+    transform-origin: center center;
+    position: absolute;
+    justify-content: center !important;
+    margin: auto;
+    width: 100px !important;
+    height: 100px !important;
+    z-index: 9;
+}
+
+:host ::ng-deep .p-progress-spinner{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    left: 0;
+}

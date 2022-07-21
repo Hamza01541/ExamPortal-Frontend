@@ -1,0 +1,12 @@
+.questions-table th:nth-child(1),
+.questions-table td:nth-child(1){
+    max-width: 100px;
+} 
+.questions-table th:nth-child(2),
+.questions-table td:nth-child(2){
+    min-width: 220px;
+}
+
+.container .questions-table{
+    width: 100%;
+}

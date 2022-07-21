@@ -1,0 +1,32 @@
+body{
+    margin: 0;
+}
+
+.p-menubar{
+    background-color: #f4623a;
+    border: none;
+    outline: none;
+}
+
+.p-menubar .p-menubar-root-list > .p-menuitem > .p-menuitem-link:not(.p-disabled):hover {
+    background: none;
+}
+
+.p-menubar .p-menubar-root-list > .p-menuitem > .p-menuitem-link .p-menuitem-text:hover,
+.p-menubar .p-menubar-root-list > .p-menuitem > .p-menuitem-link .p-menuitem-icon:hover 
+{
+    color: #ffff !important;
+}
+
+.p-menubar .p-menubar-root-list > .p-menuitem > .p-menuitem-link:hover{
+    color: #ffff !important;
+}
+
+input.hide-spinner::-webkit-outer-spin-button,
+input.hide-spinner::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input.hide-spinner[type=number] {
+  -moz-appearance: textfield;
+}

@@ -1,0 +1,70 @@
+<!-- MCQS Add Form -->
+
+<form class="questionair-form" #QuestionairForm="ngForm" style="width: 650px">
+
+  <Section *ngFor="let question of addMultiQuestions; let i = index">
+
+    <div class="d-flex flex-column col-12">
+      <p-progressSpinner *ngIf="isLoading"></p-progressSpinner>
+
+      <div class="grid align-items-center">
+        <p><strong style="margin-left: 10px;">Question Title</strong></p>
+        <span *ngIf="i>=1"><i class="pi pi-times leftIcon ml-2 mb-4" style="color: red;"
+            (click)="RemoveQuestion(i)"></i></span>
+      </div>
+      <input style="margin-bottom: 3px;" type="text" pInputText placeholder="QuestionTitle" required minlength="8"
+        #title="ngModel" name="title-{{ i }}" [(ngModel)]="question.title" value="{{ question.title }}"
+        id="{{ question?._id }}" />
+      <span style="color: red" class="form-control-feedback" *ngIf="title.errors && (title.dirty || title.touched)">
+        &nbsp;
+        <span *ngIf="title.errors['required']">Title is required</span> &nbsp;
+        <span *ngIf="title.errors['minlength']">Title must be at least 8 characters.</span>
+      </span>
+    </div>
+
+    <!-- multiply Question with Add dynamic way -->
+    <p style="margin-left: 10px;margin-bottom: 25px;"><strong>Add Questions Options</strong> </p>
+
+    <div class="formgrid grid align-items-center">
+      <div class="col-6 mb-4" *ngFor="let option of question.questionOption;let opIdx = index">
+        <span class="p-float-label" style="margin-left: 10px;">
+          <input id="float-input" type="text" pInputText #Option="ngModel" [required]="option.require"
+            name="{{ option.label }}-{{ i }}" (keyup)="isOptionValid(option.value,i)" [(ngModel)]="option.value"
+            value="{{ option.value }}" id="{{ option.value }}-{{ i }}" />
+          <label for="float-input">{{ option.label }}</label>
+          <span style="color: red" *ngIf="option?.isExist">
+            This Option Already Added</span>
+          &nbsp;
+          <span style="color: red" *ngIf="Option.invalid && Option.touched"> Option {{ option.label | uppercase }} is
+            required</span>
+        </span>
+      </div>
+    </div>
+
+    <div class="d-flex flex-column col-4">
+      <div class="grid align-items-center">
+        <p><strong style="margin-left: 10px;">Marks</strong></p>
+      </div>
+      <input style="margin-bottom: 3px;" type="number" pInputText placeholder="Marks" required #marks="ngModel"
+        name="marks" [(ngModel)]="question.marks" value="{{ question.marks }}" id="marks" />
+      <span style="color: red" class="form-control-feedback" *ngIf="marks.errors && (marks.dirty || marks.touched)">
+        &nbsp;
+        <span *ngIf="marks.errors['required']">Marks is required</span> &nbsp;
+      </span>
+    </div>
+
+    <div class="grid align-items-center col-4">
+      <p class="m-0 mx-3"><strong>Select Anwser</strong> </p>
+      <p-dropdown [options]="question.questionOption" [(ngModel)]="question.answer" optionValue="value"
+        placeholder="Answer" optionLabel="label" name="answer-{{question.questionId}}"
+        id="answer-{{question.questionId}}"></p-dropdown>
+    </div>
+    <hr />
+
+    <!-- Add From Button -->
+    <div *ngIf="QuestionairForm.valid" style="text-align-last: center;">
+      <button pButton type="button" label="Submit" class="p-button-info" name="AddQuestions"
+        (click)="addQuestion(question)"></button>
+    </div>
+  </Section>
+</form>

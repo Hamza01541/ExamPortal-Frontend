@@ -1,0 +1,13 @@
+
+<app-appnavigation></app-appnavigation>
+
+
+<div class="d-flex container px-4 px-lg-5" style="margin-top: 100px; margin-bottom: 30px;">
+<button pButton type="button" label="Add Question" class="p-button-info" (click)="openQuestionModel()"></button>
+</div>
+
+<!-- App Question list component -->
+<app-questions-list (editSelectedQuestion)="editQuestion($event)"(onDeleteSelectedQuestion)="deleteQuestion($event)" [questionaires]="questionaires">
+    
+</app-questions-list>
+

@@ -1,0 +1,54 @@
+<app-appnavigation></app-appnavigation>
+
+<br><br> <br> <br>
+
+<div class="w-9 mx-auto">
+  <h1>Questionnaire</h1>
+  <div *ngIf="!formSubmitted">
+    <form #usersubmit='ngForm'>
+      <!-- Multi dynamic Radio Button  -->
+      <div *ngFor="let question of questionList; let index = index">
+        <p class="questionTitle">
+          {{index+1}}- {{question.title}}
+        </p>
+        <div class="w-10 grid m-0">
+          <div class="grid align-items-center col-6" *ngFor="let option of question.questionOption">
+
+            <p class="mr-1 mb-0" *ngIf='option?.value?.length'>{{option.label}}.</p>
+
+            <p-radioButton [disabled]="isdisable" name="{{question.title}}"
+              inputId="{{question.questionId}}" ngModel
+              (onClick)="selectAnswer(question, option.value)" label="{{option.value}}" 
+              value={{option.value}}></p-radioButton>
+          </div>
+        </div>
+        <hr>
+      </div>
+
+      <!-- Get Value and title -->
+      <button class="mt-2" pButton type="button" label="Submit" (click)="submitAnswer()"
+        [disabled]="isdisable"></button>
+    </form>
+  </div>
+
+  <div *ngIf="formSubmitted">
+    <p>Your Score is: <span style="font-weight: bold;">{{totalScore}} / {{totalMarks}}</span> </p>
+    <p>Your Percentage is: <span style="font-weight: bold;">{{percenttage| number:'1.2-2'}} %</span></p>
+<hr>
+
+    <div style="margin-top: 20px;" >
+      <div *ngFor="let item of userAnswers; let i = index">
+        <p>{{i+1}}- {{item.title}}</p>
+        <p [ngStyle]="{'color': item.selectedAnswer == item.answer ? 'green' : 'red' }">Submitted Answer: {{item.selectedAnswer}}</p>
+        <p style="color: green;">Right Answer: {{item.answer}}</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- <span *ngIf="isdisable == true">
+    <button pButton type="button" label="Your Result" (click)="getResult()"></button>
+  </span> -->
+</div>
+<br><br>
+
+<!-- User Result Show Here -->
