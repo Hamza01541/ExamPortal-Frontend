@@ -14,7 +14,7 @@
     </div>
 </nav> -->
 
-<app-appnavigation></app-appnavigation>
+<app-appnavigation *ngIf="currentUser.role === 'admin'"></app-appnavigation>
 
 
 <!-- Masthead-->

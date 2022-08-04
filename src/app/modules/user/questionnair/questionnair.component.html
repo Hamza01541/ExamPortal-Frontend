@@ -1,37 +1,98 @@
-<app-appnavigation></app-appnavigation>
+<app-appnavigation  *ngIf="currentUser.role === 'admin'" ></app-appnavigation>
 
 <br><br> <br> <br>
 
-<div class="w-9 mx-auto">
-  <h1>Questionnaire</h1>
+
+
+<div *ngIf="!isTime; else noQuestionnaireFound">
+  <div class="container" *ngIf="!showQuestionnaire">
+    <div class="row" *ngIf="questionList?.questions && !isSubmitted; else noQuestionnaireFound">
+        <div class="col-lg-6">
+            <div class="card card-margin">
+                <div class="card-header no-border">
+                    <h5 class="card-title">{{currentUser.name!.first + " " + currentUser.name!.middle  + " " + currentUser.name!.last }}</h5>
+                </div>
+                <div class="card-body pt-0">
+                    <div class="widget-49">
+                        <div class="widget-49-title-wrapper">
+                            <div class="widget-49-date-primary">
+                                <span class="widget-49-date-day">{{date}}</span>
+                                <span class="widget-49-date-month">{{month}}</span>
+                            </div>
+                            <div class="widget-49-meeting-info">
+                                <span class="widget-49-pro-title">{{questionList.questionnaireTitle}}</span>
+                                <span class="widget-49-meeting-time">{{totalTime}} minutes</span>
+                            </div>
+                        </div>
+                        <ol class="widget-49-meeting-points">
+                            <li class="widget-49-meeting-item"><span>Specific time for each question.</span></li>
+                            <li class="widget-49-meeting-item"><span>Make sure you have an active internet connection</span></li>
+                            <li class="widget-49-meeting-item"><span>Session will automatically close after given time.</span></li>
+                        </ol>
+                        <div class="widget-49-meeting-action">
+                            <a class="btn btn-sm btn-flash-border-primary" (click)="startTest()">Start Test</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</div>
+
+<div class="w-9 mx-auto" *ngIf="showQuestionnaire">
   <div *ngIf="!formSubmitted">
-    <form #usersubmit='ngForm'>
+  <h1>Questionnaire</h1>
+  <form #usersubmit='ngForm'>
       <!-- Multi dynamic Radio Button  -->
-      <div *ngFor="let question of questionList; let index = index">
+
+      <!-- <div *ngFor="let question of filteredQuestions; let index = index">
+      <p>timeleft 00:{{question.questionTime}}</p>
         <p class="questionTitle">
           {{index+1}}- {{question.title}}
         </p>
         <div class="w-10 grid m-0">
-          <div class="grid align-items-center col-6" *ngFor="let option of question.questionOption">
+          <div class="grid align-items-center col-6" *ngFor="let option of question.questionOption" >
 
             <p class="mr-1 mb-0" *ngIf='option?.value?.length'>{{option.label}}.</p>
-
             <p-radioButton [disabled]="isdisable" name="{{question.title}}"
-              inputId="{{question.questionId}}" ngModel
+              inputId="{{question._id}}" ngModel
               (onClick)="selectAnswer(question, option.value)" label="{{option.value}}" 
               value={{option.value}}></p-radioButton>
           </div>
+          <button (click)="next(pager.index + 1)">Next</button>
+        </div>
+        <hr>
+      </div> -->
+      <div >
+      <p><strong>Remaining:</strong> {{remainingTime}} Sec</p>
+        <p class="questionTitle">
+          {{pager.index + 1}}- {{currentQuestion?.title}}
+        </p>
+        <div class="w-10 grid m-0">
+          <div class="grid align-items-center col-6" *ngFor="let option of currentQuestion?.questionOption" >
+
+            <p class="mr-1 mb-0" *ngIf='option?.value?.length'>{{option.label}}.</p>
+            <p-radioButton [disabled]="isdisable" name="{{currentQuestion?.title}}"
+              inputId="{{currentQuestion._id}}" ngModel
+              (onClick)="selectAnswer(currentQuestion, option.value)" label="{{option.value}}" 
+              value={{option.value}}></p-radioButton>
+          </div>
+          <!-- <button (click)="nextQuestion()">Next</button> -->
+          <button pButton pRipple type="button" label="Next" (click)="nextQuestion()" class="p-button-raised"></button>
+          
         </div>
         <hr>
       </div>
 
       <!-- Get Value and title -->
-      <button class="mt-2" pButton type="button" label="Submit" (click)="submitAnswer()"
+      <button *ngIf="pager.index + 1 === pager.count" class="mt-2 p-button-raised p-button-success" pButton type="button" label="Submit" (click)="submitAnswer()"
         [disabled]="isdisable"></button>
+
     </form>
   </div>
 
-  <div *ngIf="formSubmitted">
+  <div *ngIf="formSubmitted" hidden>
     <p>Your Score is: <span style="font-weight: bold;">{{totalScore}} / {{totalMarks}}</span> </p>
     <p>Your Percentage is: <span style="font-weight: bold;">{{percenttage| number:'1.2-2'}} %</span></p>
 <hr>
@@ -45,10 +106,35 @@
     </div>
   </div>
 
+  <div *ngIf="formSubmitted" class="d-flex flex-column align-items-center justify-content-center success-card">
+    <div class="success-icon">
+      <div class="success-icon__tip"></div>
+      <div class="success-icon__long"></div>
+    </div>
+    <div class="h4 mt-5">
+     Thanks for Submission
+    </div>
+    <div class="h6 mt-3">
+      We'll get back to you soon
+    </div>
+  </div>
+
   <!-- <span *ngIf="isdisable == true">
     <button pButton type="button" label="Your Result" (click)="getResult()"></button>
   </span> -->
 </div>
+
+<ng-template #noQuestionnaireFound>
+  <div class="d-flex justify-content-center align-items-center w-100 vh-100">
+    <div class="text-center">
+      <h1 *ngIf="isSubmitted">You have Already Submitted the Test</h1>
+      <h1 *ngIf="!isSubmitted">No Questionnaire Found</h1>
+    </div>
+  </div>
+</ng-template>
+
+
 <br><br>
 
 <!-- User Result Show Here -->
+

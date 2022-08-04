@@ -1,1 +1,1 @@
-export * from '@app/core/interceptors/requestInterceptor';
+export * from './requestInterceptor';

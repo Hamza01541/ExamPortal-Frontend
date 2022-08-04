@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { MenuItem } from 'primeng/api';
+import { LocalStorageService } from '../../services';
 
 @Component({
   selector: 'app-appnavigation',
@@ -8,9 +10,15 @@ import { MenuItem } from 'primeng/api';
 })
 export class AppnavigationComponent implements OnInit {
 
-  constructor() { }
+  constructor(private readonly localStorageService: LocalStorageService,
+              private readonly router: Router) { }
 
   ngOnInit(): void {
+  }
+
+  logout(){
+    this.localStorageService.clear();
+    this.router.navigate(['/login']);
   }
 
 }

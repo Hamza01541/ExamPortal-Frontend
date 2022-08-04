@@ -1,0 +1,64 @@
+<app-appnavigation *ngIf="currentUser.role === 'admin'"></app-appnavigation>
+
+
+<div class="d-flex justify-content-between align-items-end container px-4 px-lg-5"
+    style="margin-top: 100px; margin-bottom: 30px;">
+    <button pButton type="button" label="Add New Questionnaire" class="p-button-info"
+        (click)="addNewQuestionnaire()"></button>
+</div>
+
+<div class="container px-3 px-lg-5">
+    <p-table class="questions-table" [value]="questionaires" [scrollable]="true" scrollHeight="auto">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>No</th>
+                <th>Questionnaire Title</th>
+                <th>Date Created</th>
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-question let-rowIndex="rowIndex">
+            <tr>
+                <td>{{rowIndex+1}}</td>
+                <td id="{{question.questionId}}">{{question.questionnaireTitle}}</td>
+                <td>May 27, 2022</td>
+                <td>
+                    <button pButton type="button" label="Edit" class="p-button-secondary"
+                        (click)="editQeustionnaire(question)"></button>
+                </td>
+                <td>
+                    <button pButton type="button" label="Delete" class="p-button-danger"
+                        (click)="deleteQuestionnaire(question)"></button>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
+
+<div class="container mt-5 px-3 px-lg-5">
+
+    <h3>Submitted Responses</h3>
+
+    <p-table [sortOrder]="1" sortField="questionnaireResponse.questionnaireTitle" class="questions-table" [value]="questionaireResponses" [scrollable]="true" scrollHeight="auto">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>No</th>
+                <th 
+                >Submitted Questionnaire </th>
+                <th>Submitted By</th>
+                <th>Submitted On</th>
+                <th>Obtained Marks</th>
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-response let-rowIndex="rowIndex">
+            <tr (click)="viewSubmission(response)">
+                <td>{{rowIndex+1}}</td>
+                <td id="{{response._id}}">{{response.questionnaireResponse.questionnaireTitle}}</td>
+                <td>{{response.userId.name.first}} {{response.userId.name.last}}</td>
+                <td>{{response.submittedDate | date:'mediumDate'}} {{response.submittedDate | date:'shortTime'}}</td>
+                <td>{{response.questionnaireResponse.obtainedMarks ?? 0}} / {{response.questionnaireResponse.totalMarks}}</td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>

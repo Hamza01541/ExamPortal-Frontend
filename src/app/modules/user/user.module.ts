@@ -9,12 +9,20 @@ import { FormsModule } from '@angular/forms';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
-import { SharedModule } from '../../shared/shared.module'
+import { SharedModule } from '../../shared/shared.module';
+import { UserTabComponent } from './user-tab/user-tab.component'
+import { AddUserFormComponent } from './add-user-form/add-user-form.component';
+import { TableModule } from 'primeng/table';
+import { CalendarModule } from 'primeng/calendar';
+
+
 // import { AppnavigationComponent } from 'src/app/appnavigation/appnavigation.component';
 @NgModule({
   declarations: [
     DownalodComponent,
     QuestionnairComponent,
+    UserTabComponent,
+    AddUserFormComponent
     // AppnavigationComponent
   ],
   imports: [
@@ -26,7 +34,9 @@ import { SharedModule } from '../../shared/shared.module'
     ButtonModule,
     CardModule,
     MenubarModule,
-    SharedModule
+    SharedModule,
+    TableModule,
+    CalendarModule,
   ]
 })
 export class UserModule { }

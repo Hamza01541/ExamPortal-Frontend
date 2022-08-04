@@ -1,12 +1,30 @@
 .questions-table th:nth-child(1),
-.questions-table td:nth-child(1){
-    max-width: 100px;
-} 
+.questions-table td:nth-child(1) {
+  max-width: 100px;
+}
 .questions-table th:nth-child(2),
-.questions-table td:nth-child(2){
-    min-width: 220px;
+.questions-table td:nth-child(2) {
+  min-width: 220px;
 }
 
-.container .questions-table{
-    width: 100%;
+.container .questions-table {
+  width: 100%;
+}
+
+.questions-table tr {
+  cursor: pointer;
+}
+
+.questions-table tr:hover {
+  background-color: #f4f4f4;
+}
+
+.previous-button {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.previous-button:hover {
+  color: #00bcd4;
+  cursor: pointer;
 }

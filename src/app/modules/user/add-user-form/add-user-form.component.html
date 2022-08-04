@@ -1,0 +1,186 @@
+<div class="frm d-flex justify-content-center mx-auto flex-column p-3">
+  <h1 class="px-2">Registration Form</h1>
+  <form class="d-flex flex-row flex-wrap" #form="ngForm">
+    <div class="col-6 d-flex flex-column">
+      <label>First Name*</label>
+      <input type="text" id="fname" name="fname" placeholder="First Name" required value="First name"
+        [(ngModel)]="user.name!.first">
+    </div>
+
+    <div class="col-6 d-flex flex-column">
+      <label>Middle Name:</label>
+      <input type="text" id="mname" name="middlename" placeholder="Middle Name" value="Middle name"
+        [(ngModel)]="user.name!.middle">
+    </div>
+
+    <div class="col-6 d-flex flex-column">
+      <label>Last Name</label>
+      <input type="text" id="lname" name="lastname" placeholder="Last Name" value="Last name:"
+        [(ngModel)]="user.name!.last">
+    </div>
+
+    <div class="col-6 d-flex flex-column">
+      <label>Role*</label>
+      <select id="roles" name="role" [(ngModel)]="user.role">
+        <option value="" selected disabled>Select Role</option>
+        <option value="admin">Admin</option>
+        <option value="user">User</option>
+      </select>
+    </div>
+
+    <div class="col-6 d-flex flex-column">
+      <label>Email*</label>
+      <input type="text" id="fname" name="user-email" value="Email" email placeholder="Email" required
+        [(ngModel)]="user.email" #email="ngModel" [ngClass]="{ 'is-invalid': submitted && email?.errors }">
+      <div *ngIf="submitted && email.errors" class="invalid-feedback">
+        <div *ngIf="email!.errors['required']">Email is required</div>
+        <div *ngIf="email!.errors['email']">Email must be a valid email address</div>
+      </div>
+    </div>
+
+    <div class="col-6 d-flex flex-column">
+      <label>Mobile</label>
+      <input type="text" id="fname" name="mobile" value="Mobile" placeholder="Mobile no" [(ngModel)]="user.cellPhone">
+    </div>
+
+    <div class="col-6 d-flex flex-column">
+      <label>Password*</label>
+      <input type="password" id="fname" name="passcode" value="Password" #password="ngModel" required
+        placeholder="Password" [ngClass]="{ 'is-invalid':submitted && password?.errors }" [(ngModel)]="user.password">
+      <div *ngIf="submitted && password?.errors" class="invalid-feedback">
+        <div *ngIf="password && password.errors && password.errors['required']">Password is required</div>
+      </div>
+    </div>
+
+    <div class="col-6 d-flex flex-column">
+      <label>Assign Questionnaire*</label>
+      <select id="questionnaire" name="questionnaire" [(ngModel)]="user.questions">
+        <option value="" selected disabled>Select Questionnaire</option>
+        <option *ngFor="let questionnaire of questionnaireList" value={{questionnaire._id}}>
+          {{questionnaire.questionnaireTitle}}
+        </option>
+      </select>
+    </div>
+    
+    <div class="col-6 pl-0 d-flex flex-row">
+      <input type="submit" value="Submit" class="mx-2" (click)="saveUser(form)">
+      <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+
+    </div>
+  </form>
+</div>
+
+
+
+
+
+
+
+<!-- <form class="form-horizontal" id="userForm" #userForm="ngForm" novalidate>
+
+  
+    <div class="pt-d75 pb-1 d-flex flex-colunm">
+      <div class="">
+        <label class="col-xs-12 col-sm-3 col-md-3 col-lg-2">First Name</label>
+        <div class="col-xs-12 col-sm-9 col-md-9 col-lg-4 form-group"
+          [ngClass]="{'has-danger': firstName?.invalid && (firstName.dirty || firstName.touched)}">
+          <input type="text" [(ngModel)]="user.name.first" class="form-control" placeholder="First Name" name="firstName"
+            #firstName="ngModel" required />
+        </div>
+        <label class="col-xs-12 col-sm-3 col-md-3 col-lg-2 pl-lg-1">Middle Name:</label>
+        <div class="col-xs-12 col-sm-9 col-md-9 col-lg-4 form-group">
+          <input type="text" [(ngModel)]="user.name.middle" class="form-control" name="middleName"
+            placeholder="Middle Name" #middleName="ngModel" />
+        </div>
+      </div>
+  
+      <div class="row">
+        <label class="col-xs-12 col-sm-3 col-md-3 col-lg-2">Last Name </label>
+        <div class="col-xs-12 col-sm-9 col-md-9 col-lg-4 form-group"
+          [ngClass]="{'has-danger': lastName.invalid && (lastName.dirty || lastName.touched)}">
+          <input type="text" [(ngModel)]="user.name.last" class="form-control" name="lastName" #lastName="ngModel"
+            placeholder="Last Name" required />
+        </div>
+      </div>
+  
+      <div class="row">
+        <label class="col-xs-12 col-sm-3 col-md-3 col-lg-2">Cell</label>
+        <div class="col-xs-12 col-sm-9 col-md-9 col-lg-4 form-group"
+          [ngClass]="{'has-danger': cellPhone.invalid && (cellPhone.dirty || cellPhone.touched)}">
+  
+          <input type="number" class="form-control" [(ngModel)]="user.cellPhone" name="cellPhone" #cellPhone="ngModel"
+            placeholder="Cell Number (Numbers only)" pattern="^([0-9]{10}$)">
+        </div>
+      </div>
+  
+      <div class="row">
+        <label class="col-xs-12 col-sm-3 col-md-3 col-lg-2">Email</label>
+        <div class="col-xs-12 col-sm-9 col-md-9 col-lg-4 form-group"
+          [ngClass]="{'has-danger': email.invalid && (email.dirty || email.touched)}">
+          <input type="email" name="email" #email="ngModel" class="form-control" placeholder="Email Address"
+            [ngModelOptions]="{ updateOn: 'blur' }" [(ngModel)]="user.email" required>
+        </div>
+
+      </div>
+  
+
+      Password for new users
+      <div class="row" *ngIf="!user._id">
+        <label class="col-xs-12 col-sm-3 col-md-3 col-lg-2">Password</label>
+        <div class="col-xs-12 col-sm-9 col-md-9 col-lg-4 form-group"
+          [ngClass]="{'has-danger': password.invalid && (password.dirty || password.touched)}">
+          <input [type]="passwordType" name="password" class="form-control" placeholder="Password" autocomplete="new-password"
+            [(ngModel)]="user.password" #password="ngModel" minlength="8" [pattern]="passwordRegex" required >
+  
+            <button class="reset-password-btn cursor-pointer" (click)="showHidePassword()" type="button">
+              <i class="fa" [ngClass]="[showPassword ? 'fa-eye' : 'fa-eye-slash'] " aria-hidden="true"></i>
+            </button>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 form-group pl-lg-1">
+          <label><small>(At least 8 characters, 1 capital, 1 special, & 1 number)</small></label>
+        </div>
+      </div>
+    </div>
+  
+  
+  
+    Roles
+    <div class="form-group mt-2" *ngIf="!user?.isAdmin">
+      <div class="checkbox">
+        <div class="form-group row">
+          <label class="col-xs-12">Roles:</label>
+        </div>
+        <app-user-roles [user]="user" (roleSelected)="roleChanged($event)"></app-user-roles>
+      </div>
+    </div>
+    <div>
+  
+      <button class="btn btn-lg w-100 btn-primary"
+        [disabled]="userForm?.invalid"
+        (click)="saveUser()">
+        <i class="fa fa-check"></i> {{(user._id) ? 'Save' : 'Create'}}
+      </button>
+
+    </div>
+  
+    <div class="pl-1 pr-1">
+      <div *ngIf="cellPhone?.errors && cellPhone?.errors['pattern']" class="alert alert-danger">
+        Cell number should be number with only 10 numbers
+      </div>
+    
+      <div *ngIf="email?.errors && email?.dirty && email?.errors['emailExists']" class="alert alert-danger">
+        Email is already registered
+      </div>
+      <div *ngIf="userForm?.invalid && formSubmitted" class="alert alert-danger">
+        Your data couldn't be submitted. Please see the errors above.
+      </div>
+             <div *ngIf="userForm.controls['password']?.errors && userForm.controls['password']?.errors['pattern']"
+        class="alert alert-danger">
+        Password must include 1 capital letter, 1 special character and 1 number
+      </div>
+      <div *ngIf="userForm.controls['password']?.errors && userForm.controls['password']?.errors['minlength']"
+        class="alert alert-danger">
+        Password must have a minimum of 8 characters
+      </div>
+    </div>
+  </form> -->

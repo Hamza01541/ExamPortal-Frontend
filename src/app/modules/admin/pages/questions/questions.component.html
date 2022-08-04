@@ -1,13 +1,34 @@
+<app-appnavigation *ngIf="currentUser.role === 'admin'"></app-appnavigation>
 
-<app-appnavigation></app-appnavigation>
+
+<div class="d-flex justify-content-between align-items-end container px-4 px-lg-5"
+    style="margin-top: 100px; margin-bottom: 30px;">
+    <div class="form-group">
+        <label for="email">Questionaire Title</label>
+        <input type="text" required class="form-control" placeholder="Enter Questionnaire Title"
+            [(ngModel)]="questionaires.questionnaireTitle" />
+    </div>
+    <button pButton type="button" label="Add Question" class="p-button-info" (click)="openQuestionModel()"></button>
+
+    <div class="form-group d-flex flex-column">
+        <label for="assignDate">Start Time</label>
+        <p-calendar placeholder="Enter Start Time" [(ngModel)]="questionaires.startTime" [showTime]=true hourFormat=12>
+        </p-calendar>
+    </div>
+
+    <div class="form-group d-flex flex-column">
+        <label for="assignDate">End Time</label>
+        <p-calendar placeholder="Enter End Time" [(ngModel)]="questionaires.endTime" [showTime]=true hourFormat=12>
+        </p-calendar>
+    </div>
 
 
-<div class="d-flex container px-4 px-lg-5" style="margin-top: 100px; margin-bottom: 30px;">
-<button pButton type="button" label="Add Question" class="p-button-info" (click)="openQuestionModel()"></button>
+    <button pButton type="button" label="Submit questionaire" class="p-button-success" (click)="submitQuestionaire()"
+        [disabled]="!questionaires?.questions?.length"></button>
+
 </div>
 
 <!-- App Question list component -->
-<app-questions-list (editSelectedQuestion)="editQuestion($event)"(onDeleteSelectedQuestion)="deleteQuestion($event)" [questionaires]="questionaires">
-    
+<app-questions-list (editSelectedQuestion)="editQuestion($event)" (onDeleteSelectedQuestion)="deleteQuestion($event)"
+    [questionaires]="questionaires">
 </app-questions-list>
-

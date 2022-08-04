@@ -4,28 +4,44 @@ import { QuestionsComponent } from '../app/modules/admin/pages';
 import { QuestionnairComponent } from './modules/user/questionnair/questionnair.component';
 import { AboutComponent } from './about/about.component';
 import { MainComponent } from './main/main.component';
+import { LoginComponent } from './login/login.component';
+import { UserTabComponent } from './modules/user/user-tab/user-tab.component';
+import { AuthGuard } from './shared/services/auth.guard';
 // import { AppnavigationComponent } from './modules/sharedmodule/appnavigation/appnavigation.component';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: 'login',
     pathMatch: 'full'
   },
   {
     path: 'home',
-    component: MainComponent
+    component: MainComponent,
+    canActivate:[AuthGuard]
+  },
+  {
+    path: 'login',
+    component: LoginComponent
   },
   {
     path: 'admin',
-    component: QuestionsComponent
+    loadChildren : () => import('./modules/admin/admin-routing.module').then(m => m.AdminRoutingModule),
+    canActivate:[AuthGuard]
   },
   {
     path: 'user',
-    component: QuestionnairComponent
+    component: QuestionnairComponent,
+    canActivate:[AuthGuard]
+  },
+  {
+    path: 'addUserTab',
+    component: UserTabComponent,
+    // canActivate:[AuthGuard]
   },
   {
     path: 'about',
-    component: AboutComponent
+    component: AboutComponent,
+    canActivate:[AuthGuard]
   },
   {
     path: '**',

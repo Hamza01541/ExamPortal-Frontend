@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { User } from '../shared/models/user.model';
+import { LocalStorageService } from '../shared/services';
 
 @Component({
   selector: 'app-main',
@@ -8,10 +10,13 @@ import { NgForm } from '@angular/forms';
 })
 export class MainComponent implements OnInit {
 uploadedImage: any = null;
+currentUser:User = new User();
 
-  constructor() { }
+  constructor(private localStorage: LocalStorageService) { }
 
   ngOnInit(): void {
+    this.currentUser = this.localStorage.get('user')
+    
   }
 
 

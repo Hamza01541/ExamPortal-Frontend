@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Questionnaire } from '../../model/Questionair.model';
+import { IQuestionnaire, Questionnaire } from '../../model/Questionair.model';
 
 @Component({
   selector: 'app-questions-list',
@@ -7,8 +7,8 @@ import { Questionnaire } from '../../model/Questionair.model';
   styleUrls: ['./questions-list.component.css'],
 })
 export class QuestionsListComponent implements OnInit {
-  @Input() questionaires: Questionnaire[] = [];
-  
+  @Input() questionaires!: IQuestionnaire;
+
   /**
    *  get Questionaires Data from Paresnt
    */
@@ -17,7 +17,8 @@ export class QuestionsListComponent implements OnInit {
 
   constructor() {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  }
 
   /**
    * emits selected question to edit.

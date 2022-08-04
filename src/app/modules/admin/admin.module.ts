@@ -12,8 +12,15 @@ import { DropdownModule } from 'primeng/dropdown';
 import { DialogModule } from 'primeng/dialog';
 import { TableModule } from 'primeng/table';
 import { DialogService, DynamicDialogModule } from 'primeng/dynamicdialog';
-import {ProgressSpinnerModule} from 'primeng/progressspinner';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { QuestionnaireListComponent } from './questionnaire-list/questionnaire-list.component';
+import { MultiSelectModule } from 'primeng/multiselect';
+import {CalendarModule} from 'primeng/calendar';
+import {AccordionModule} from 'primeng/accordion';
+import { ViewResultComponent } from './components/view-result/view-result.component';
+
+
 
 
 @NgModule({
@@ -21,6 +28,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
     QuestionsComponent,
     AddQuestionModalComponent,
     QuestionsListComponent,
+    QuestionnaireListComponent,
+    ViewResultComponent
     // AppnavigationComponent
   ],
   imports: [
@@ -36,9 +45,12 @@ import { SharedModule } from 'src/app/shared/shared.module';
     DialogModule,
     TableModule,
     DynamicDialogModule,
-    SharedModule
+    SharedModule,
+    MultiSelectModule,
+    CalendarModule,
+    AccordionModule
   ],
-  
+
   providers: [
     DialogService,
   ],

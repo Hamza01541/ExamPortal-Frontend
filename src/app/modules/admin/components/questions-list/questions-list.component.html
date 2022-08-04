@@ -1,5 +1,5 @@
 <div class="d-flex container px-4 px-lg-5">
-<p-table class="questions-table" [value]="questionaires" [scrollable]="true" scrollHeight="485px">
+<p-table class="questions-table" [value]="questionaires.questions!" [scrollable]="true" scrollHeight="485px">
   <ng-template pTemplate="header" >
     <tr>
       <th>No</th>
@@ -10,6 +10,7 @@
       <th>Option D</th>
       <th>Answer</th>
       <th>Marks</th>
+      <th>Question Time</th>
       <th>Edit</th>
       <th>Delete</th>
     </tr>
@@ -22,6 +23,7 @@
       <td *ngFor="let item2 of question.questionOption">{{item2.value}}</td>
       <td>{{question.answer}}</td>
       <td>{{question.marks}}</td>
+      <td>{{question.questionTime}}</td>
       <td>
         <button pButton type="button" label="Edit" class="p-button-secondary" (click)="editQuestion(question)"></button>
       </td>

@@ -1,0 +1,25 @@
+.questions-table tr {
+  cursor: pointer;
+}
+
+.questions-table tr:hover {
+  background-color: #f4f4f4;
+}
+
+.previous-button {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.previous-button:hover {
+  color: #00bcd4;
+  cursor: pointer;
+}
+
+.container .questions-table {
+  width: 100%;
+}
+
+/* .questions-table {
+  all : unset;
+} */

@@ -8,11 +8,15 @@ import { AdminModule } from './modules/admin/admin.module';
 import { AppRoutingModule } from './app-routing.module';
 import { MenubarModule } from 'primeng/menubar';
 import { InputTextModule } from 'primeng/inputtext';
+import { CardModule } from "primeng/card";
 import { UserModule } from './modules/user/user.module';
 import { AboutComponent } from './about/about.component';
 import { MainComponent } from './main/main.component';
 import { SharedModule } from '../app/shared/shared.module';
 import { AdminService, RequestService } from './shared/services';
+import { LoginComponent } from './login/login.component';
+import { ToastrModule } from 'ngx-toastr';
+import { CoreModule } from './core/core.module';
 
 
 @NgModule({
@@ -20,6 +24,7 @@ import { AdminService, RequestService } from './shared/services';
     AppComponent,
     AboutComponent,
     MainComponent,
+    LoginComponent,
   ],
   imports: [
     // CommonModule,
@@ -32,6 +37,9 @@ import { AdminService, RequestService } from './shared/services';
     MenubarModule,
     InputTextModule,
     SharedModule,
+    CardModule,
+    CoreModule,
+    ToastrModule.forRoot(), 
   ],
   providers: [],
   bootstrap: [AppComponent]

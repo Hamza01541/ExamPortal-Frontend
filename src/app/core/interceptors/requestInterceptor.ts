@@ -10,11 +10,20 @@ import {
 import { catchError } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
 import { Router } from '@angular/router';
+import { LocalStorageService } from 'src/app/shared/services';
+import { User } from 'src/app/shared/models/user.model';
 
 @Injectable()
 export class RequestInterceptor implements HttpInterceptor {
   token: string = '';
-  constructor(private router: Router) {}
+  currentUser: User = new User();
+  assetBaseUrl: string = `assets/`;
+
+  constructor(private router: Router, private localStorageService: LocalStorageService) {
+    this.currentUser = this.localStorageService.get('user')
+    this.token = this.currentUser?.token!;
+  }
+
 
   /**
    * Checks if Api request header is required or not.
@@ -22,19 +31,22 @@ export class RequestInterceptor implements HttpInterceptor {
    * @param request Request
    * @param next in flight HttpRequest
    */
-  intercept(request: HttpRequest<any>, next: HttpHandler): any {
-    if (!this.isHeaderRequired(request)) {
-      return next.handle(request).pipe(
-        catchError((error: HttpErrorResponse) => {
-          return throwError(error);
-        })
-      );
-    } else {
-      if (this.token && this.token.length) {
+  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    if (this.isHeaderRequired(request)) {
+      // if (this.token && this.token?.length) {
         request = this.setRequestHeader(request, this.token);
-      }
+      // }
     }
+    return next.handle(request).pipe(
+      catchError((error: HttpErrorResponse) => {
+        if (error.status === 401) {
+          this.router.navigate(['/login']);
+        }
+        return throwError(error);
+      })
+    )
   }
+
 
   /**
    * Checks either request headers are required for current request or not.
@@ -42,8 +54,7 @@ export class RequestInterceptor implements HttpInterceptor {
    * @returns boolean
    */
   private isHeaderRequired(request: HttpRequest<any>): boolean {
-    return true;
-    // return !(request.url.includes(this.assetBaseUrl) || contentTypeBlackListUrls.includes(request.url));
+    return !(request.url.includes(this.assetBaseUrl) || request.url.includes("login"));
   }
 
   /**

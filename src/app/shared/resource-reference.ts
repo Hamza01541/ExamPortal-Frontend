@@ -10,4 +10,8 @@ export class ApiUrl {
   static apiBaseUrl = `${ApiUrl.backendUri}/api`;
 
   static questionairre = 'questionairre';
+  static login = 'login'
+  static addUser = 'addUser'
+  static getUsers = 'getUsers'
+  static submitResponse = 'submitResponse'
 }

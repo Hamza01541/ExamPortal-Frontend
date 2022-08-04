@@ -1,0 +1,48 @@
+.frm{
+    width: 800px;
+    background: #fff;
+    border: 1px solid #000;
+    border-radius: 5px;
+}
+
+label{
+    font-size: 15px;
+}
+
+input[type=text]{
+    font-size: 14px;
+    padding: 4px;
+    color: #000;
+    height: 40px;
+}
+
+input[type=password]{
+    font-size: 14px;
+    padding: 4px;
+    color: #000;
+    height: 40px;
+}
+
+input[type=submit]{
+    width: 250px;
+    border-radius: 5px;
+    box-shadow: 2px 2px 2px #eee;
+    font-size: 14px;
+    padding: 4px;
+    color: #fff;
+    height: 40px;
+    background: #0288D1;
+    border: none;
+}
+
+select{
+    font-size: 14px;
+    padding: 4px;
+    color: #0e0d0d;
+    height: 40px;
+}
+
+h1{
+    font-size: 20px;
+}
+

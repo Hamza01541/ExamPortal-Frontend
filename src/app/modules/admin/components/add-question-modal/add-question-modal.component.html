@@ -53,11 +53,27 @@
       </span>
     </div>
 
+    <div class="d-flex flex-column col-12">
+      <p-progressSpinner *ngIf="isLoading"></p-progressSpinner>
+
+      <div class="grid align-items-center">
+        <p><strong style="margin-left: 10px;">Question Time</strong></p>
+        <span *ngIf="i>=1"><i class="pi pi-times leftIcon ml-2 mb-4" style="color: red;"
+            (click)="RemoveQuestion(i)"></i></span>
+      </div>
+      <input style="margin-bottom: 3px;" type="number" pInputText placeholder="Time" 
+        #times="ngModel" name="questionTime" [(ngModel)]="question.questionTime" value="{{ question.questionTime }}" />
+      <span style="color: red" class="form-control-feedback" *ngIf="times.errors && (times.dirty || times.touched)">
+        &nbsp;
+        <span *ngIf="times.errors['required']">Time is required</span> &nbsp;
+      </span>
+    </div>
+
     <div class="grid align-items-center col-4">
       <p class="m-0 mx-3"><strong>Select Anwser</strong> </p>
       <p-dropdown [options]="question.questionOption" [(ngModel)]="question.answer" optionValue="value"
-        placeholder="Answer" optionLabel="label" name="answer-{{question.questionId}}"
-        id="answer-{{question.questionId}}"></p-dropdown>
+        placeholder="Answer" optionLabel="label" name="answer-{{question._id}}"
+        id="answer-{{question._id}}"></p-dropdown>
     </div>
     <hr />
 

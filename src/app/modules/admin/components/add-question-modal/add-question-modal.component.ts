@@ -1,5 +1,5 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { QuestionButton, Questionnaire } from '../../model/Questionair.model';
+import { IQuestionnaire, QuestionButton, Questionnaire } from '../../model/Questionair.model';
 import { DialogService } from 'primeng/dynamicdialog';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { AdminService } from 'src/app/shared/services';
@@ -24,7 +24,7 @@ export class AddQuestionModalComponent implements OnInit, OnDestroy {
   public isLoading = false;
   public selectedCategoryName: string;
   public selectedDropDownValue: any;
-  public questionaires: Questionnaire[] = [];
+  public questionaires: IQuestionnaire[] = [];
   // questionairCatagory: questioCatagory[] = [];
   // answerList: answerList[] = [];
 
@@ -66,7 +66,8 @@ export class AddQuestionModalComponent implements OnInit, OnDestroy {
         questionOption: selectedQuestion?.questionOption,
         answer: selectedQuestion?.answer,
         marks: selectedQuestion.marks,
-        questionId: selectedQuestion.questionId
+        questionTime: selectedQuestion.questionTime,
+        // questionId: selectedQuestion.questionId
       },
     ];
   }
@@ -75,38 +76,22 @@ export class AddQuestionModalComponent implements OnInit, OnDestroy {
    * sends api request to add Question.
    * @param questionaires Questionnaire.
    */
-  addQuestion(questionaire: Questionnaire) {
+   addQuestion(questionaire: Questionnaire) {
     this.isLoading = true;
-    
-   const currentIndex = this.questionaires.findIndex(x=> x.questionId === questionaire.questionId);
-
-   if(currentIndex === -1) {
-    questionaire.questionId = this.getRandomId();
-    this.questionaires.push(questionaire);
-   } else {
-    this.questionaires[currentIndex] = questionaire;
-  }
-
-   localStorage.setItem('questionList', JSON.stringify(this.questionaires));
-
+    // if(questionaire._id){
+    //   this.adminService.updateQuestion(questionaire._id,questionaire).subscribe((res) => {
+    //     console.log('res:--update ', res);
+    //   })
+    // }
+    // else{
+    //   this.adminService.addQuestion(questionaire).subscribe((res) => {
+    //   })
+    // }
    setTimeout(() => {
    this.isLoading = false;
-   this.ref.close();
+   this.ref.close(questionaire);
     }, 3000);
   }
-
-  // /**
-  //  * sends api request to update Question.
-  //  * @param question Questionnaire obj.
-  //  */
-  // updateQuestion(question: Questionnaire) {
-  //   this.adminService.updateQuestion(question).subscribe((res) => {
-  //     if (res) {
-  //       this.isLoading = false;
-  //       this.ref.close();
-  //     }
-  //   });
-  // }
 
 
 

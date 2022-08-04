@@ -1,7 +1,7 @@
 
 export class Questionnaire {
-  questionId?: string;
-  _id?: string
+  // questionId?: string;
+  _id?: string;
   title: string = '';
   questionOption: QuestionOptions[] = [
     { label: 'A', value: '', require: true, isExist: false },
@@ -13,7 +13,17 @@ export class Questionnaire {
   marks: number = 0;
   selectedAnswer?: string = '';
   isCorrect?: boolean = false;
+  questionTime?: number = 0;
 };
+
+
+export class IQuestionnaire {
+  _id?: string;
+  questionnaireTitle?: string = '';
+  questions?: Questionnaire[] = [];
+  startTime?: Date | string = '';
+  endTime?: Date | string = '';
+}
 
 export class QuestionOptions {
   label: string = '';
@@ -23,14 +33,22 @@ export class QuestionOptions {
 }
 
 export class QuestionButton {
-    isValidAnwer: boolean = false;
-    isNotValidQuestion: boolean = true;
+  isValidAnwer: boolean = false;
+  isNotValidQuestion: boolean = true;
 }
 
 /**
  * DropDown List Catagory name
  */
- export interface questioCatagory {
+export interface questioCatagory {
   name: string;
   code: string;
+}
+
+
+export interface IQuestionnaireResponse {
+  _id: string;
+  userId: string;
+  questionnaireResponse: IQuestionnaire[];
+  isSubmitted: boolean;
 }

@@ -16,6 +16,7 @@ export class RequestService {
    * @returns Observable<any>
    */
   getData(url: string, obj?: any): Observable<any> {
+    console.log('obj: ', obj);
     return this.http.get(url, obj);
   }
 
