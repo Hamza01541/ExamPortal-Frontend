@@ -90,7 +90,7 @@ export class AddQuestionModalComponent implements OnInit, OnDestroy {
    setTimeout(() => {
    this.isLoading = false;
    this.ref.close(questionaire);
-    }, 3000);
+    }, 2000);
   }
 
 

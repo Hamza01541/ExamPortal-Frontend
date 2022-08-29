@@ -33,9 +33,9 @@ export class RequestInterceptor implements HttpInterceptor {
    */
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     if (this.isHeaderRequired(request)) {
-      // if (this.token && this.token?.length) {
+      if (this.token && this.token?.length) {
         request = this.setRequestHeader(request, this.token);
-      // }
+      }
     }
     return next.handle(request).pipe(
       catchError((error: HttpErrorResponse) => {

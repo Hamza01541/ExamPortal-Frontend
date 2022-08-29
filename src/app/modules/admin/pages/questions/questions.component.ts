@@ -23,6 +23,7 @@ export class QuestionsComponent implements OnInit {
   users: any;
   user: any;
   dateTime: any
+  questionnaireId!: string | null;
 
 
 
@@ -54,9 +55,9 @@ export class QuestionsComponent implements OnInit {
   }
 
   public getQuestionsList() {
-    const questionnaireId = this.getQuestionnairId();
-    if (questionnaireId && questionnaireId.length) {
-      this.adminService.getQuestionById(questionnaireId).subscribe((res) => {
+    this.questionnaireId = this.getQuestionnairId();
+    if (this.questionnaireId && this.questionnaireId.length) {
+      this.adminService.getQuestionById(this.questionnaireId).subscribe((res) => {
         if (res) {
           this.questionaires = res;
           this.questionaires.startTime = new Date(this.questionaires.startTime!);
@@ -92,9 +93,9 @@ export class QuestionsComponent implements OnInit {
     ref.onClose.subscribe((question) => {
       if (question) {
         this.questionaires.questions = [...this.questionaires.questions!, question];
-        this.adminService.updateQuestion(this.getQuestionnairId(), this.questionaires).subscribe((res) => {
-          this.getQuestionsList();
-        });
+        // this.adminService.addQuestion(this.questionaires).subscribe((res) => {
+        //   this.getQuestionsList();
+        // });
       }
     });
   }

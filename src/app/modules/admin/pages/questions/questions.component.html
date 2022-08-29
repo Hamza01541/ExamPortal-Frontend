@@ -23,7 +23,7 @@
     </div>
 
 
-    <button pButton type="button" label="Submit questionaire" class="p-button-success" (click)="submitQuestionaire()"
+    <button pButton type="button" label="{{questionnaireId ? 'Update Questionaire': 'Submit Questionaire'}}" class="p-button-success" (click)="submitQuestionaire()"
         [disabled]="!questionaires?.questions?.length"></button>
 
 </div>
