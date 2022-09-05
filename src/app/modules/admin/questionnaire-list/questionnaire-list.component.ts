@@ -16,6 +16,7 @@ export class QuestionnaireListComponent implements OnInit {
   public currentUser: User = new User();
   public questionaires: IQuestionnaire[] = [];
   public questionaireResponses: IQuestionnaireResponse[] = [];
+  public currentDate = new Date();
 
   constructor(private readonly localStorageService: LocalStorageService,
     private readonly adminService: AdminService,
@@ -27,7 +28,7 @@ export class QuestionnaireListComponent implements OnInit {
 
   ngOnInit(): void {
     this.getQuestionnaireList();
-
+    
     this.getSubmittedQuestionnaire();
   }
 
@@ -48,10 +49,10 @@ export class QuestionnaireListComponent implements OnInit {
     this.router.navigate(['/admin/questions', { id: questionnaire._id }]);
   }
 
-  public deleteQuestionnaire(questionnaire: IQuestionnaire): void {
+  public deleteQuestionnaire(questionnaire: IQuestionnaire, rowIndex:number): void {
     this.adminService.deleteQuestion(questionnaire._id).subscribe((res) => {
       if (res) {
-        this.getQuestionnaireList();
+        this.questionaires.splice(rowIndex, 1)
       }
     });
   }

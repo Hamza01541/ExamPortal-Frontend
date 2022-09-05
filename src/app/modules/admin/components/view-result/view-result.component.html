@@ -1,8 +1,8 @@
 <div class="container px-3 px-lg-5">
-    <h3>{{result.questionnaireResponse?.questionnaireTitle}}</h3>
+    <h3>{{result?.questionnaireResponse?.questionnaireTitle}}</h3>
     <h4>Result</h4>
     <div style="margin-top: 20px;" >
-        <div *ngFor="let item of result.questionnaireResponse.questions; let i = index">
+        <div *ngFor="let item of result?.questionnaireResponse?.questions; let i = index">
           <p>{{i+1}}- <strong>{{item.title}}</strong></p>
           <p [ngStyle]="{'color': item.selectedAnswer == item.answer ? 'green' : 'red' }">Submitted Answer: {{item.selectedAnswer}}</p>
           <p style="color: green;">Right Answer: {{item.answer}}</p>

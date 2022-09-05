@@ -142,6 +142,11 @@ export class QuestionsComponent implements OnInit {
    * Submits Questionnaire to server.
    */
   submitQuestionaire() {
+       this.questionaires.startTime = new Date(this.questionaires.startTime as Date);
+       this.questionaires.endTime = new Date(this.questionaires.endTime as Date);
+       this.questionaires.startTime.setSeconds(0,0);
+       this.questionaires.endTime.setSeconds(0,0);
+   
     if (this.questionaires._id) {
       this.adminService.updateQuestion(this.getQuestionnairId(), this.questionaires).subscribe((res) => {
         setTimeout(() => history.back(), 2000);

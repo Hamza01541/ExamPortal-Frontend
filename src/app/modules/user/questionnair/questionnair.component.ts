@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { User } from 'src/app/shared/models/user.model';
 import { AdminService, LocalStorageService } from 'src/app/shared/services';
 import { IQuestionnaire, Questionnaire } from '../../admin/model/Questionair.model';
@@ -46,7 +47,7 @@ export class QuestionnairComponent implements OnInit {
   isSubmitted: boolean = false;
 
 
-  constructor(private adminService: AdminService, private localStorage: LocalStorageService) { }
+  constructor(private adminService: AdminService, private localStorage: LocalStorageService, private router: Router) { }
 
   ngOnInit(): void {
     this.currentUser = this.localStorage.get('user')
@@ -150,6 +151,11 @@ export class QuestionnairComponent implements OnInit {
     ).pipe().subscribe((res: any) => {
       
       this.formSubmitted = true;
+
+      setTimeout(() => {
+        this.localStorage.clear();
+        this.router.navigate(['/login']);
+      }, 2000)
     });
     //   if (answer.isCorrect) {
     //     this.totalScore += answer.marks;
