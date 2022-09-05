@@ -19,11 +19,7 @@ export class RequestInterceptor implements HttpInterceptor {
   currentUser: User = new User();
   assetBaseUrl: string = `assets/`;
 
-  constructor(private router: Router, private localStorageService: LocalStorageService) {
-    this.currentUser = this.localStorageService.get('user')
-    this.token = this.currentUser?.token!;
-  }
-
+  constructor(private router: Router, private localStorageService: LocalStorageService) {}
 
   /**
    * Checks if Api request header is required or not.
@@ -32,9 +28,12 @@ export class RequestInterceptor implements HttpInterceptor {
    * @param next in flight HttpRequest
    */
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    this.currentUser = this.localStorageService.get('user');
+    const currentToken = this.currentUser?.token;
+
     if (this.isHeaderRequired(request)) {
-      if (this.token && this.token?.length) {
-        request = this.setRequestHeader(request, this.token);
+      if (currentToken?.length) {
+        request = this.setRequestHeader(request, currentToken);
       }
     }
     return next.handle(request).pipe(
