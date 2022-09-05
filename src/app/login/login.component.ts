@@ -54,8 +54,12 @@ export class LoginComponent implements OnInit {
     },
     error => {
       this.loading = false;
-      this.toastr.error(`${error.status}: ${error.error}`, 'Error');
-    })
+      if(error?.error){
+        this.toastr.error(`${error.error}`, 'Error');
+      }else{
+        this.toastr.error(`Invalid Credentials`, 'Error');
+      }
+    });
   }
 }
 
