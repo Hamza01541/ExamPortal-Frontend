@@ -19,11 +19,11 @@
   <ng-template pTemplate="body" let-question let-rowIndex="rowIndex">
     <tr>
       <td>{{rowIndex+1}}</td>
-      <td id="{{question.questionId}}">{{question.title}}</td>
-      <td *ngFor="let item2 of question.questionOption">{{item2.value}}</td>
-      <td>{{question.answer}}</td>
-      <td>{{question.marks}}</td>
-      <td>{{question.questionTime}}</td>
+      <td id="{{question?.questionId}}">{{question?.title}}</td>
+      <td *ngFor="let item2 of question?.questionOption">{{item2?.value}}</td>
+      <td>{{question?.answer}}</td>
+      <td>{{question?.marks}}</td>
+      <td>{{question?.questionTime}}</td>
       <td>
         <button pButton type="button" label="Edit" class="p-button-secondary" (click)="editQuestion(question)"></button>
       </td>

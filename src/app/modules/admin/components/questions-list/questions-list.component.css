@@ -5,8 +5,8 @@
 .questions-table th:nth-child(2),
 .questions-table td:nth-child(2) {
   min-width: 220px;
+  word-break: break-all;
 }
-
 .container .questions-table {
   width: 100%;
 }

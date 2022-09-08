@@ -43,6 +43,7 @@ export class AddQuestionModalComponent implements OnInit, OnDestroy {
       this.isEditMode = true;
     } else {
       this.questionnaire = new Questionnaire();
+      this.questionnaire.answer = '0'
       this.initializeQuestionairForm(this.questionnaire);
     }
   }
